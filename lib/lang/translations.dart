@@ -163,6 +163,7 @@ class AppTranslations extends Translations {
           "delete_vote": "Delete Vote",
           "delete_vote_confirm": "Are you sure you want to delete this vote?",
           "select_4_6_courses": "Please select 4-6 courses you would like to take",
+          "home":"HOME"
         },
         'ar': {
           "course_code": "رمز المادة: %s",
@@ -324,7 +325,8 @@ class AppTranslations extends Translations {
           "delete": "حذف",
           "delete_vote": "حذف التصويت",
           "delete_vote_confirm": "هل أنت متأكد أنك تريد حذف هذا التصويت؟",
-          "select_4_6_courses": "يرجى اختيار 4-6 مقررات تريد دراستها"
+          "select_4_6_courses": "يرجى اختيار 4-6 مقررات تريد دراستها",
+          "home":'الرئيسية'
         },
       };
 }

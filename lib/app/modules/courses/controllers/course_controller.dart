@@ -85,6 +85,7 @@ class CourseController extends GetxController {
 
   Future<void> fetchPrerequisites(String courseCode) async {
     try {
+      print('Fetching prerequisites for $courseCode');
       final prereqs = await _courseRepository.getPrerequisites(courseCode);
       prerequisites.assignAll(prereqs);
     } catch (e) {

@@ -22,32 +22,34 @@ class DashboardView extends GetView<DashboardController> {
 
     return Scaffold(
       body: Obx(() => _pages[controller.selectedIndex.value]),
-      bottomNavigationBar: Obx(() => BottomNavigationBar(
-        currentIndex: controller.selectedIndex.value,
-        onTap: controller.changeTab,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: AppTheme.secondaryColor,
-        selectedItemColor: AppTheme.primaryColor,
-        unselectedItemColor: Colors.white70,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'nav.home'.tr,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'nav.courses'.tr,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grade),
-            label: 'nav.marks'.tr,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.how_to_vote),
-            label: 'nav.voting'.tr,
-          ),
-        ],
-      )),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: controller.selectedIndex.value,
+          onTap: controller.changeTab,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppTheme.secondaryColor,
+          selectedItemColor: AppTheme.primaryColor,
+          unselectedItemColor: Colors.white70,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'nav.home'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: 'nav.courses'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.grade),
+              label: 'nav.marks'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.how_to_vote),
+              label: 'nav.voting'.tr,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -85,46 +87,56 @@ class DashboardView extends GetView<DashboardController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Obx(() => Text(
-                '${'dashboard.hello'.tr} ${controller.student.value?.name ?? "Student"}',
+              Text(
+                "home".tr,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
-              )),
-              Row(children: [
-                IconButton(
-                  icon: Icon(Icons.language, color: Colors.white),
-                  onPressed: () {
-                    final currentLang = Get.locale?.languageCode ?? 'en';
-                    final newLang = currentLang == 'ar' ? 'en' : 'ar';
-                    Get.find<LanguageController>().changeLanguage(newLang);
-                  },
-                ),
-                // IconButton(
-                //   icon: Icon(themeController.isDarkMode ? Icons.dark_mode : Icons.light_mode, color: Colors.white),
-                //   onPressed: () {
-                //     themeController.toggleTheme();
-                //   },
-                // ),
-                IconButton(
-                  icon: Icon(Icons.logout, color: Colors.white),
-                  onPressed: () {
-                    Get.find<AuthController>().logout();
-                  },
-                ),
-              ]),
+              ),
+              // Obx(() => //Text(
+              // '${'dashboard.hello'.tr} ${controller.student.value?.name ?? "Student"}',
+              // style: TextStyle(
+              // fontSize: 22,
+              // fontWeight: FontWeight.bold,
+              // color: Colors.white,
+              //),
+              //)),
+              Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.language, color: Colors.white),
+                    onPressed: () {
+                      final currentLang = Get.locale?.languageCode ?? 'en';
+                      final newLang = currentLang == 'ar' ? 'en' : 'ar';
+                      Get.find<LanguageController>().changeLanguage(newLang);
+                    },
+                  ),
+                  // IconButton(
+                  //   icon: Icon(themeController.isDarkMode ? Icons.dark_mode : Icons.light_mode, color: Colors.white),
+                  //   onPressed: () {
+                  //     themeController.toggleTheme();
+                  //   },
+                  // ),
+                  IconButton(
+                    icon: Icon(Icons.logout, color: Colors.white),
+                    onPressed: () {
+                      Get.find<AuthController>().logout();
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
           SizedBox(height: 10),
-          Obx(() => Text(
-            '${controller.student.value?.major ?? ""} - ${controller.getYearText(controller.student.value?.year ?? 1)}',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white70,
-            ),
-          )),
+          // Obx(() => Text(
+          //   '${controller.student.value?.major ?? ""} - ${controller.getYearText(controller.student.value?.year ?? 1)}',
+          //   style: TextStyle(
+          //     fontSize: 16,
+          //     color: Colors.white70,
+          //   ),
+          // )),
         ],
       ),
     );
@@ -201,20 +213,14 @@ class DashboardView extends GetView<DashboardController> {
       onTap: onTap,
       child: Card(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(
-                icon,
-                size: 32,
-                color: color,
-              ),
+              Icon(icon, size: 32, color: color),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -229,10 +235,7 @@ class DashboardView extends GetView<DashboardController> {
                   SizedBox(height: 4),
                   Text(
                     subtitle,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
               ),
@@ -275,7 +278,8 @@ class DashboardView extends GetView<DashboardController> {
             }
 
             final gpa = controller.cumulativeGPA['gpa'] ?? 0.0;
-            final credits = controller.cumulativeGPA['credits'] ?? 0;
+            final credits = controller.cumulativeGPA['credit'] ?? 0;
+
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -350,10 +354,7 @@ class DashboardView extends GetView<DashboardController> {
                 ),
                 Text(
                   '${'dashboard.out_of'.tr} $max',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
               ],
             ),
@@ -372,10 +373,7 @@ class DashboardView extends GetView<DashboardController> {
     );
   }
 
-  Widget _buildCreditIndicator({
-    required int value,
-    required String title,
-  }) {
+  Widget _buildCreditIndicator({required int value, required String title}) {
     return Column(
       children: [
         Container(
@@ -384,10 +382,7 @@ class DashboardView extends GetView<DashboardController> {
           decoration: BoxDecoration(
             color: AppTheme.primaryColor.withOpacity(0.2),
             shape: BoxShape.circle,
-            border: Border.all(
-              color: AppTheme.secondaryColor,
-              width: 3,
-            ),
+            border: Border.all(color: AppTheme.secondaryColor, width: 3),
           ),
           child: Center(
             child: Text(

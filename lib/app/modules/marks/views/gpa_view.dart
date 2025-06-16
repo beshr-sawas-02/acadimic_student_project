@@ -59,7 +59,7 @@ class GpaView extends StatelessWidget {
 
               final cumulativeGPA = controller.cumulativeGPA;
               final gpa = cumulativeGPA['gpa']?.toDouble() ?? 0.0;
-              final credits = cumulativeGPA['credits'] ?? 0;
+              final credits = cumulativeGPA['credit'] ?? 0;
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -330,7 +330,7 @@ class GpaView extends StatelessWidget {
               }
 
               final gpa = semesterGPA['gpa']?.toDouble() ?? 0.0;
-              final credits = semesterGPA['credits'] ?? 0;
+              final credits = semesterGPA['credit'] ?? 0;
               final courses = semesterGPA['courses'] ?? [];
 
               return Column(

@@ -1,8 +1,8 @@
-// lib/app/modules/courses/views/available_courses_view.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/course_controller.dart';
 import '../../../utils/theme.dart';
+import 'course_detail_view.dart';
 
 class AvailableCoursesView extends StatelessWidget {
   final CourseController controller = Get.put(CourseController());
@@ -55,6 +55,7 @@ class AvailableCoursesView extends StatelessWidget {
             itemCount: controller.openCourses.length,
             itemBuilder: (context, index) {
               final course = controller.openCourses[index];
+
               return Card(
                 margin: EdgeInsets.only(bottom: 16),
                 elevation: 2,
@@ -62,9 +63,9 @@ class AvailableCoursesView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: InkWell(
-                  onTap: () {
-                    controller.selectedCourse.value = course;
-                    Get.toNamed('/course-detail');
+                  onTap: () async {
+                    await controller.fetchCourseById(course.id!);
+                    Get.to(() => CourseDetailView());
                   },
                   borderRadius: BorderRadius.circular(12),
                   child: Padding(
@@ -164,9 +165,9 @@ class AvailableCoursesView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TextButton(
-                              onPressed: () {
-                                controller.selectedCourse.value = course;
-                                Get.toNamed('/course-detail');
+                              onPressed: () async {
+                                await controller.fetchCourseById(course.id!);
+                                Get.to(() => CourseDetailView());
                               },
                               child: Text(
                                 'view_details'.tr,
