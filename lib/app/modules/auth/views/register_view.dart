@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../utils/theme.dart';
 import '../controllers/auth_controller.dart';
 
-
 class RegisterView extends GetView<AuthController> {
+  final List<String> yearsLabels = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
 
-  List<String> yearsLables = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+  final List<String> majors = [
+    'هندسة المعلوماتية والاتصالات',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +88,22 @@ class RegisterView extends GetView<AuthController> {
                         ),
                       ),
                       SizedBox(height: 16),
-                      TextField(
-                        controller: controller.majorController,
-                        keyboardType: TextInputType.text,
+                      Obx(() => DropdownButtonFormField<String>(
                         decoration: InputDecoration(
                           labelText: 'register_major'.tr,
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.school),
                         ),
-                      ),
+                        value: controller.selectedMajor.value.isEmpty ? null : controller.selectedMajor.value,
+                        items: majors
+                            .map((major) => DropdownMenuItem<String>(
+                          value: major,
+                          child: Text(major),
+                        ))
+                            .toList(),
+                        onChanged: (value) {
+                          if (value != null) controller.selectedMajor.value = value;
+                        },
+                      )),
                       SizedBox(height: 16),
                       DropdownButtonFormField<int>(
                         value: controller.selectedYear.value,
@@ -102,9 +111,9 @@ class RegisterView extends GetView<AuthController> {
                           labelText: 'register_year'.tr,
                           prefixIcon: Icon(Icons.calendar_today),
                         ),
-                        items: yearsLables
+                        items: yearsLabels
                             .map((year) => DropdownMenuItem(
-                          value: yearsLables.indexOf(year) + 1,
+                          value: yearsLabels.indexOf(year) + 1,
                           child: Text(year.tr),
                         ))
                             .toList(),
@@ -132,9 +141,7 @@ class RegisterView extends GetView<AuthController> {
                       ),
                       SizedBox(height: 30),
                       Obx(() => ElevatedButton(
-                        onPressed: controller.isLoading.value
-                            ? null
-                            : () => controller.register(),
+                        onPressed: controller.isLoading.value ? null : () => controller.register(),
                         child: Text(
                           'register_button'.tr,
                           style: TextStyle(fontSize: 16),

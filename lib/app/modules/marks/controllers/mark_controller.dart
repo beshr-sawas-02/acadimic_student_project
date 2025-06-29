@@ -9,6 +9,8 @@ class MarkController extends GetxController {
   final MarkRepository _markRepository = Get.find<MarkRepository>();
   final AuthRepository _authRepository = Get.find<AuthRepository>();
   final StorageProvider _storageProvider = Get.find<StorageProvider>();
+  RxInt selectedYear = 1.obs;
+  RxInt selectedSemester = 1.obs;
 
   final RxBool isLoading = false.obs;
   final RxList<Mark> myMarks = <Mark>[].obs;
@@ -83,7 +85,7 @@ class MarkController extends GetxController {
     }
   }
 
-  // دالة لتحويل العلامة إلى التقدير النصي (letter grade) حسب back-end
+
   String getLetterGrade(double mark) {
     if (mark < 50) {
       return "F";
@@ -108,13 +110,13 @@ class MarkController extends GetxController {
     } else if (mark < 98) {
       return "A";
     } else if (mark <= 100) {
-      return "A";
+      return "A+";
     } else {
       return "Invalid";
     }
   }
 
-  // دالة لتحويل العلامة إلى نقاط GPA حسب back-end
+
   double getGradePoint(double mark) {
     if (mark < 50) {
       return 0.0;
@@ -145,7 +147,7 @@ class MarkController extends GetxController {
     }
   }
 
-  // دالة لاختيار لون التقدير بناءً على نقاط GPA (لتلوين الواجهة)
+
   Color getGradeColor(double mark) {
     final point = getGradePoint(mark);
     if (point >= 3.5) {

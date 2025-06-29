@@ -9,6 +9,6 @@ class AuthBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<ApiProvider>(() => ApiProvider(), fenix: true);
     Get.lazyPut<AuthRepository>(() => AuthRepository(), fenix: true);
-    Get.lazyPut<AuthController>(() => AuthController(), fenix: true);
+    Get.put(AuthController(),permanent: true);
   }
 }

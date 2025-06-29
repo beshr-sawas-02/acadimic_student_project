@@ -84,7 +84,7 @@ class CourseDetailView extends GetView<CourseController> {
                           leading: CircleAvatar(
                             backgroundColor: AppTheme.primaryColor,
                             child: Text(
-                              prereq.courseCode.substring(0, 1),
+                              prereq.substring(0, 1),
                               style: TextStyle(
                                 color: AppTheme.secondaryColor,
                                 fontWeight: FontWeight.bold,
@@ -92,13 +92,13 @@ class CourseDetailView extends GetView<CourseController> {
                             ),
                           ),
                           title: Text(
-                            prereq.name,
+                            prereq,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           subtitle: Text(
-                            '${'code'.tr}: ${prereq.courseCode}',
+                            '${'code'.tr}: ${prereq}',
                           ),
                         );
                       }).toList(),

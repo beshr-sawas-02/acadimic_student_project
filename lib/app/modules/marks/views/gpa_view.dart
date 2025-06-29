@@ -3,13 +3,23 @@ import 'package:get/get.dart';
 import '../controllers/mark_controller.dart';
 import '../../../utils/theme.dart';
 
-class GpaView extends StatelessWidget {
+class GpaView extends StatefulWidget {
+  GpaView({Key? key}) : super(key: key);
+
+  @override
+  _GpaViewState createState() => _GpaViewState();
+}
+
+class _GpaViewState extends State<GpaView> {
   final MarkController controller = Get.put(MarkController());
 
-  // اختياري: تقدر تجيب بيانات أول مرة هنا بدل build لتقليل النداءات
-  GpaView({Key? key}) : super(key: key) {
-    controller.fetchCumulativeGPA();
-    controller.fetchSemesterGPA(1, 1); // تحميل الافتراضي للسنة 1 والفصل 1
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchCumulativeGPA();
+      controller.fetchSemesterGPA(controller.selectedYear.value, controller.selectedSemester.value);
+    });
   }
 
   @override
@@ -20,15 +30,22 @@ class GpaView extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppTheme.secondaryColor,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCumulativeGPACard(),
-            SizedBox(height: 24),
-            _buildSemesterGPASection(),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.fetchCumulativeGPA();
+          await controller.fetchSemesterGPA(controller.selectedYear.value, controller.selectedSemester.value);
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCumulativeGPACard(),
+              SizedBox(height: 24),
+              _buildSemesterGPASection(),
+            ],
+          ),
         ),
       ),
     );
@@ -172,9 +189,6 @@ class GpaView extends StatelessWidget {
     );
   }
 
-  final RxInt selectedYear = 1.obs;
-  final RxInt selectedSemester = 1.obs;
-
   Widget _buildSemesterGPASection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,14 +233,14 @@ class GpaView extends StatelessWidget {
                 children: [1, 2, 3, 4, 5].map((year) {
                   return GestureDetector(
                     onTap: () {
-                      selectedYear.value = year;
-                      controller.fetchSemesterGPA(year, selectedSemester.value);
+                      controller.selectedYear.value = year;
+                      controller.fetchSemesterGPA(year, controller.selectedSemester.value);
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 10),
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
-                        color: selectedYear.value == year
+                        color: controller.selectedYear.value == year
                             ? AppTheme.secondaryColor
                             : Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -235,7 +249,7 @@ class GpaView extends StatelessWidget {
                       child: Text(
                         '${'year'.tr} $year',
                         style: TextStyle(
-                          color: selectedYear.value == year
+                          color: controller.selectedYear.value == year
                               ? Colors.white
                               : AppTheme.secondaryColor,
                           fontWeight: FontWeight.bold,
@@ -260,14 +274,14 @@ class GpaView extends StatelessWidget {
               children: [1, 2].map((semester) {
                 return GestureDetector(
                   onTap: () {
-                    selectedSemester.value = semester;
-                    controller.fetchSemesterGPA(selectedYear.value, semester);
+                    controller.selectedSemester.value = semester;
+                    controller.fetchSemesterGPA(controller.selectedYear.value, semester);
                   },
                   child: Container(
                     margin: EdgeInsets.only(right: 10),
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
-                      color: selectedSemester.value == semester
+                      color: controller.selectedSemester.value == semester
                           ? AppTheme.secondaryColor
                           : Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -276,7 +290,7 @@ class GpaView extends StatelessWidget {
                     child: Text(
                       '${'semester'.tr} $semester',
                       style: TextStyle(
-                        color: selectedSemester.value == semester
+                        color: controller.selectedSemester.value == semester
                             ? Colors.white
                             : AppTheme.secondaryColor,
                         fontWeight: FontWeight.bold,
@@ -302,7 +316,7 @@ class GpaView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Obx(() => Text(
-              '${'year'.tr} ${selectedYear.value}, ${'semester'.tr} ${selectedSemester.value}',
+              '${'year'.tr} ${controller.selectedYear.value}, ${'semester'.tr} ${controller.selectedSemester.value}',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -359,23 +373,9 @@ class GpaView extends StatelessWidget {
                       itemCount: courses.length,
                       itemBuilder: (context, index) {
                         final course = courses[index];
-                        final mark = (course['mark']?.toDouble() ?? 0.0);
                         return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            course['name'] ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            '${'code'.tr}: ${course['courseCode'] ?? ''}',
-                          ),
-                          trailing: Text(
-                            '${'grade'.tr}: ${controller.getLetterGrade(mark)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: controller.getGradeColor(mark),
-                            ),
-                          ),
+                          title: Text(course['name'] ?? ''),
+                          subtitle: Text('${'grade'.tr}: ${course['grade'] ?? ''}'),
                         );
                       },
                     ),

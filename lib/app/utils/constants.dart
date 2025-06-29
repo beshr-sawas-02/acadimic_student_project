@@ -1,7 +1,7 @@
 // lib/app/utils/constants.dart
 class ApiConstants {
-   static const String baseUrl = 'https://student-vote-backend.vercel.app'; // Use localhost for Android emulator
-   //static const String baseUrl = 'http://192.168.201.167:3000'; // Use this for iOS simulator
+   // static const String baseUrl = 'https://acadimicproj.vercel.app'; // Use localhost for Android emulator
+   static const String baseUrl = 'http://172.20.10.3:3000'; // Use this for iOS simulator
 
   // Auth endpoints
   static const String login = '/auth/loginStudent';
@@ -18,6 +18,7 @@ class ApiConstants {
   static const String allCourses = '$course/find-all-course';
   static const String courseById = '$course/find-one';
   static const String openCourses = '$course/open-course';
+  static const String availableCourse = '$course/available';
 
   // Mark endpoints
   static const String mark = '/mark';

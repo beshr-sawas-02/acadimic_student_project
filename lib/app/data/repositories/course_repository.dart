@@ -1,4 +1,5 @@
 // lib/app/data/repositories/course_repository.dart
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import '../providers/api_provider.dart';
 import '../models/course.dart';
@@ -22,10 +23,10 @@ class CourseRepository {
     }
   }
 
-  Future<List<Course>> getOpenCoursesByYear(int year) async {
+  Future<List<Course>> getOpenCoursesByYear() async {
     try {
       final response = await _apiProvider.get(
-        '${ApiConstants.openCourses}/$year',
+        ApiConstants.availableCourse,
       );
 
       if (response.statusCode == 200) {
@@ -53,36 +54,23 @@ class CourseRepository {
     }
   }
 
-  Future<List<Course>> getPrerequisites(String courseCode) async {
+  Future<List<String>> getPrerequisites(String courseCode) async {
     try {
       final response = await _apiProvider.get(
         '${ApiConstants.course}/$courseCode/prerequisites',
       );
-      print('Calling API for prerequisites of $courseCode');
-      print('Raw prerequisites data: ${response.data}');
-
-      if (response.statusCode == 200) {
-        final data = response.data;
-
-        if (data is List) {
-          // data is List<String> of prerequisite course codes
-          List<Course> prereqs = [];
-          for (var code in data) {
-            if (code is String) {
-              final course = await getCourseById(code);
-              if (course != null) {
-                prereqs.add(course);
-              }
-            }
-          }
-          return prereqs;
-        }
+      return (response.data as List)
+          .map((course) => course.toString())
+          .toList();
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw e.response!.data['message'] ?? 'Failed to get prerequisites';
+      } else {
+        throw e.message ?? 'Failed to get prerequisites';
       }
-      print('Response status: ${response.statusCode}');
-      return [];
     } catch (e) {
-      print('Get prerequisites error: $e');
-      return [];
+      throw e.toString();
     }
   }
+
 }

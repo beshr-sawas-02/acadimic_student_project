@@ -130,9 +130,9 @@ class AppTranslations extends Translations {
           'failed_load_votes': 'Failed to load votes',
           'failed_load_available_courses': 'Failed to load available courses',
           'max_reached': 'Maximum Reached',
-          'max_6_courses': 'You can only select up to 6 courses',
+          'max_7_courses': 'You can only select up to 7 courses',
           'too_few_courses': 'Too Few Courses',
-          'min_4_courses': 'You must select at least 4 courses',
+          'min_1_courses': 'You must select at least 1 courses',
           'success': 'Success',
           'vote_submitted': 'Your vote has been submitted',
           'failed_submit_vote': 'Failed to submit vote',
@@ -144,7 +144,7 @@ class AppTranslations extends Translations {
           'voting_history': 'Voting History',
           'course_selection': 'Course Selection',
           'select_courses_instruction':
-              'Please select 4-6 courses you would like to take',
+              'Please select 1-7 courses you would like to take',
           "selected_count": "Selected: %s / %s",
           'submit_vote': 'SUBMIT VOTE',
           'confirm_vote': 'Confirm Vote',
@@ -162,7 +162,7 @@ class AppTranslations extends Translations {
           "delete": "Delete",
           "delete_vote": "Delete Vote",
           "delete_vote_confirm": "Are you sure you want to delete this vote?",
-          "select_4_6_courses": "Please select 4-6 courses you would like to take",
+          "select_1_7_courses": "Please select 1-7 courses you would like to take",
           "home":"HOME"
         },
         'ar': {
@@ -293,9 +293,9 @@ class AppTranslations extends Translations {
           'failed_load_votes': 'فشل في تحميل التصويتات',
           'failed_load_available_courses': 'فشل في تحميل المقررات المتاحة',
           'max_reached': 'تم الوصول للحد الأقصى',
-          'max_6_courses': 'يمكنك اختيار حتى 6 مقررات فقط',
+          'max_7_courses': 'يمكنك اختيار حتى 7 مقررات فقط',
           'too_few_courses': 'عدد المقررات قليل جدًا',
-          'min_4_courses': 'يجب اختيار 4 مقررات على الأقل',
+          'min_1_courses': 'يجب اختيار 1 مقررات على الأقل',
           'success': 'تم بنجاح',
           'vote_submitted': 'تم إرسال تصويتك بنجاح',
           'failed_submit_vote': 'فشل في إرسال التصويت',
@@ -307,7 +307,7 @@ class AppTranslations extends Translations {
           'voting_history': 'سجل التصويت',
           'course_selection': 'اختيار المقررات',
           'select_courses_instruction':
-              'يرجى اختيار 4 إلى 6 مقررات ترغب في دراستها',
+              'يرجى اختيار 1 إلى 7 مقررات ترغب في دراستها',
           "selected_count": "المحدد: %s / %s",
           'submit_vote': 'إرسال التصويت',
           'confirm_vote': 'تأكيد التصويت',
@@ -325,7 +325,7 @@ class AppTranslations extends Translations {
           "delete": "حذف",
           "delete_vote": "حذف التصويت",
           "delete_vote_confirm": "هل أنت متأكد أنك تريد حذف هذا التصويت؟",
-          "select_4_6_courses": "يرجى اختيار 4-6 مقررات تريد دراستها",
+          "select_1_7_courses": "يرجى اختيار 1-7 مقررات تريد دراستها",
           "home":'الرئيسية'
         },
       };

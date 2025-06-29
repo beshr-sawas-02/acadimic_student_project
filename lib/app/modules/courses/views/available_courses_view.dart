@@ -23,34 +23,41 @@ class AvailableCoursesView extends StatelessWidget {
           }
 
           if (controller.openCourses.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.book_outlined,
-                    size: 80,
-                    color: Colors.grey,
+            return ListView(
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 100),
+                      Icon(
+                        Icons.book_outlined,
+                        size: 80,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'no_courses_available'.tr,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      ElevatedButton(
+                        onPressed: () => controller.fetchOpenCourses(),
+                        child: Text('refresh'.tr),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                    'no_courses_available'.tr,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () => controller.fetchOpenCourses(),
-                    child: Text('refresh'.tr),
-                  ),
-                ],
-              ),
+                ),
+              ],
             );
           }
 
           return ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
             padding: EdgeInsets.all(16),
             itemCount: controller.openCourses.length,
             itemBuilder: (context, index) {

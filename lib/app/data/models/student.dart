@@ -22,7 +22,7 @@ class Student {
       id: json['_id'],
       name: json['name'],
       major: json['major'],
-      year: json['year'],
+      year: json['academicStatus'] ?? 1,
       universityId: json['universityId'],
     );
   }
@@ -32,7 +32,7 @@ class Student {
       '_id': id,
       'name': name,
       'major': major,
-      'year': year,
+      'academicStatus': year,
       'universityId': universityId,
     };
   }

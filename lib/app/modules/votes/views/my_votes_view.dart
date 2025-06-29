@@ -46,10 +46,10 @@ class MyVotesView extends StatelessWidget {
                     child: Text('vote_now'.tr),
                   ),
 
-                  ElevatedButton(
-                    onPressed: () => controller.fetchMyVotes(),
-                    child: Text('vote_now'.tr),
-                  ),
+                  // ElevatedButton(
+                  //   onPressed: () => controller.fetchMyVotes(),
+                  //   child: Text('vote_now'.tr),
+                  // ),
                 ],
               ),
             );

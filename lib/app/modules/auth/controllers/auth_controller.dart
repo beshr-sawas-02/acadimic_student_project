@@ -12,12 +12,13 @@ class AuthController extends GetxController {
   final RxBool isLoading = false.obs;
   final Rx<Student?> currentStudent = Rx<Student?>(null);
 
-  final TextEditingController universityIdController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+   TextEditingController universityIdController = TextEditingController();
+   TextEditingController passwordController = TextEditingController();
 
   // Register-only Controllers
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController majorController = TextEditingController();
+  // حذف majorController لأنه أصبح Dropdown
+  RxString selectedMajor = ''.obs;
   Rx<int> selectedYear = 1.obs;
 
   @override
@@ -30,8 +31,6 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-
-    // فقط إذا كنا في شاشة تسجيل الدخول نعيد التوجيه إلى لوحة التحكم
     if (Get.currentRoute == Routes.LOGIN) {
       if (_storageProvider.isLoggedIn() && currentStudent.value != null) {
         Future.delayed(Duration(milliseconds: 100), () {
@@ -41,14 +40,7 @@ class AuthController extends GetxController {
     }
   }
 
-  @override
-  void onClose() {
-    // nameController.dispose();
-    // majorController.dispose();
-    // universityIdController.dispose();
-    // passwordController.dispose();
-    super.onClose();
-  }
+
 
   void _initializeUser() {
     if (_storageProvider.isLoggedIn()) {
@@ -64,9 +56,9 @@ class AuthController extends GetxController {
 
   Future<void> login() async {
     isLoading.value = true;
-
     try {
       final universityId = universityIdController.text;
+      print(universityId);
       if (universityId.isEmpty) {
         Get.snackbar(
           'error_title'.tr,
@@ -108,7 +100,7 @@ class AuthController extends GetxController {
 
     try {
       final name = nameController.text.trim();
-      final major = majorController.text.trim();
+      final major = selectedMajor.value.trim();
       final year = selectedYear.value;
       final universityId = universityIdController.text.trim();
       final password = passwordController.text.trim();
@@ -158,7 +150,6 @@ class AuthController extends GetxController {
 
   Future<void> logout() async {
     isLoading.value = true;
-
     try {
       await _authRepository.logout();
       currentStudent.value = null;
@@ -176,7 +167,6 @@ class AuthController extends GetxController {
 
   Future<void> getProfile() async {
     isLoading.value = true;
-
     try {
       final profile = await _authRepository.getProfile();
       if (profile != null) {

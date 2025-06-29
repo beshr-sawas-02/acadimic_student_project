@@ -13,7 +13,7 @@ class CourseController extends GetxController {
   final RxList<Course> allCourses = <Course>[].obs;
   final RxList<Course> openCourses = <Course>[].obs;
   final Rx<Course?> selectedCourse = Rx<Course?>(null);
-  final RxList<Course> prerequisites = <Course>[].obs;
+  final RxList<String> prerequisites = <String>[].obs;
 
   @override
   void onInit() {
@@ -44,7 +44,7 @@ class CourseController extends GetxController {
     try {
       final student = _storageProvider.getUser();
       if (student != null) {
-        final courses = await _courseRepository.getOpenCoursesByYear(student.year);
+        final courses = await _courseRepository.getOpenCoursesByYear();
         openCourses.assignAll(courses);
       }
     } catch (e) {
@@ -87,6 +87,7 @@ class CourseController extends GetxController {
     try {
       print('Fetching prerequisites for $courseCode');
       final prereqs = await _courseRepository.getPrerequisites(courseCode);
+      print(prereqs.length);
       prerequisites.assignAll(prereqs);
     } catch (e) {
       Get.snackbar(

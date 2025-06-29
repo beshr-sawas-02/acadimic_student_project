@@ -136,33 +136,35 @@ class AppHelpers {
   }
 
   static String getLetterGrade(double mark) {
-    if (mark >= 95) return 'A+';
-    else if (mark >= 90) return 'A';
-    else if (mark >= 85) return 'A-';
-    else if (mark >= 80) return 'B+';
-    else if (mark >= 75) return 'B';
-    else if (mark >= 70) return 'B-';
-    else if (mark >= 65) return 'C+';
-    else if (mark >= 60) return 'C';
-    else if (mark >= 56) return 'C-';
-    else if (mark >= 53) return 'D+';
+    if (mark >= 98) return 'A+';
+    else if (mark >= 95) return 'A';
+    else if (mark >= 90) return 'A-';
+    else if (mark >= 85) return 'B+';
+    else if (mark >= 80) return 'B';
+    else if (mark >= 75) return 'B-';
+    else if (mark >= 70) return 'C+';
+    else if (mark >= 65) return 'C';
+    else if (mark >= 60) return 'C-';
+    else if (mark >= 55) return 'D+';
     else if (mark >= 50) return 'D';
-    else return 'F';
+    else if (mark >= 0) return 'F';
+    else return 'Invalid';
   }
 
   static double getGpaValue(double mark) {
-    if (mark >= 95) return 4.0;      // A+
-    else if (mark >= 90) return 4.0;  // A
-    else if (mark >= 85) return 3.7;  // A-
-    else if (mark >= 80) return 3.3;  // B+
-    else if (mark >= 75) return 3.0;  // B
-    else if (mark >= 70) return 2.7;  // B-
-    else if (mark >= 65) return 2.3;  // C+
-    else if (mark >= 60) return 2.0;  // C
-    else if (mark >= 56) return 1.7;  // C-
-    else if (mark >= 53) return 1.3;  // D+
-    else if (mark >= 50) return 1.0;  // D
-    else return 0.0;                  // F
+    if (mark >= 98) return 4.0;      // A+
+    else if (mark >= 95) return 3.75;  // A
+    else if (mark >= 90) return 3.5;  // A-
+    else if (mark >= 85) return 3.25;  // B+
+    else if (mark >= 80) return 3.0;  // B
+    else if (mark >= 75) return 2.75;  // B-
+    else if (mark >= 70) return 2.5;  // C+
+    else if (mark >= 65) return 2.25;  // C
+    else if (mark >= 60) return 2.0;  // C-
+    else if (mark >= 55) return 1.75;  // D+
+    else if (mark >= 50) return 1.5;  // D
+    else if (mark >= 0) return 0.0;   // F
+    else return -1.0;
   }
 
   static String getMarkStatusText(String status) {

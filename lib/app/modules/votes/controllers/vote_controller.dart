@@ -47,7 +47,7 @@ class VoteController extends GetxController {
     try {
       final student = _storageProvider.getUser();
       if (student != null) {
-        final courses = await _courseRepository.getOpenCoursesByYear(student.year);
+        final courses = await _courseRepository.getOpenCoursesByYear();
         availableCourses.assignAll(courses);
       }
     } catch (e) {
@@ -61,17 +61,17 @@ class VoteController extends GetxController {
     if (selectedCourseIds.contains(courseId)) {
       selectedCourseIds.remove(courseId);
     } else {
-      if (selectedCourseIds.length < 6) {
+      if (selectedCourseIds.length < 7) {
         selectedCourseIds.add(courseId);
       } else {
-        Get.snackbar('max_reached'.tr, 'max_6_courses'.tr, snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar('max_reached'.tr, 'max_7_courses'.tr, snackPosition: SnackPosition.BOTTOM);
       }
     }
   }
 
   Future<bool> submitVote() async {
-    if (selectedCourseIds.length < 4) {
-      Get.snackbar('too_few_courses'.tr, 'min_4_courses'.tr, snackPosition: SnackPosition.BOTTOM);
+    if (selectedCourseIds.length < 1) {
+      Get.snackbar('too_few_courses'.tr, 'min_1_courses'.tr, snackPosition: SnackPosition.BOTTOM);
       return false;
     }
 

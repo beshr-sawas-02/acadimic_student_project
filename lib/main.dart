@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'app/data/providers/api_provider.dart';
 import 'app/modules/language_controller.dart';
 import 'app/modules/theme_controller.dart';
 import 'app/routes/app_pages.dart';
@@ -17,6 +18,7 @@ void main() async {
 
 Future<void> initServices() async {
   await Get.putAsync(() => StorageProvider().init());
+  Get.put(ApiProvider());
   Get.put(LanguageController());
   Get.put(ThemeController());
 }

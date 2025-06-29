@@ -58,9 +58,7 @@ class CreateVoteView extends StatelessWidget {
         return Column(
           children: [
             _buildVotingInfo(),
-            Expanded(
-              child: _buildCourseList(),
-            ),
+            Expanded(child: _buildCourseList()),
             _buildSubmitButton(),
           ],
         );
@@ -85,7 +83,7 @@ class CreateVoteView extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            'select_4_6_courses'.tr,
+            'select_1_7_courses'.tr,
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey[700],
@@ -95,12 +93,12 @@ class CreateVoteView extends StatelessWidget {
           Obx(() => Text(
             'selected_count'.trArgs([
               controller.selectedCourseIds.length.toString(),
-              '6',
+              '7',
             ]),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: controller.selectedCourseIds.length < 4
+              color: controller.selectedCourseIds.length < 1
                   ? Colors.red
                   : AppTheme.secondaryColor,
             ),
@@ -199,7 +197,7 @@ class CreateVoteView extends StatelessWidget {
         ],
       ),
       child: Obx(() => ElevatedButton(
-        onPressed: controller.selectedCourseIds.length < 4 ||
+        onPressed: controller.selectedCourseIds.length < 1 ||
             controller.isLoading.value
             ? null
             : () => _submitVote(),

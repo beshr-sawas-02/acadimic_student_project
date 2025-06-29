@@ -60,6 +60,10 @@ class DashboardController extends GetxController {
         return 'fourth_year'.tr;
       case 5:
         return 'fifth_year'.tr;
+      case 6:
+        return 'fifth_year'.tr;
+      case 7:
+        return 'fifth_year'.tr;
       default:
         return 'unknown_year'.tr;
     }
