@@ -28,7 +28,6 @@ class CourseRepository {
       final response = await _apiProvider.get(
         ApiConstants.availableCourse,
       );
-
       if (response.statusCode == 200) {
         final List<dynamic> coursesData = response.data;
         return coursesData.map((data) => Course.fromJson(data)).toList();

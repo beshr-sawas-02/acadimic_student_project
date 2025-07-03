@@ -12,8 +12,8 @@ class AppHelpers {
     bool isError = false,
   }) {
     Get.snackbar(
-      title,
-      message,
+      title.tr,
+      message.tr,
       snackPosition: position,
       backgroundColor: isError ? Colors.red.shade700 : AppTheme.secondaryColor,
       colorText: Colors.white,
@@ -27,16 +27,16 @@ class AppHelpers {
 
   static void showErrorSnackBar({required String message}) {
     showSnackBar(
-      title: 'Error',
-      message: message,
+      title: 'error'.tr,
+      message: message.tr,
       isError: true,
     );
   }
 
   static void showSuccessSnackBar({required String message}) {
     showSnackBar(
-      title: 'Success',
-      message: message,
+      title: 'success'.tr,
+      message: message.tr,
       isError: false,
     );
   }
@@ -44,25 +44,25 @@ class AppHelpers {
   static Future<bool?> showConfirmDialog({
     required String title,
     required String message,
-    String confirmText = 'CONFIRM',
-    String cancelText = 'CANCEL',
+    String confirmText = 'confirm',
+    String cancelText = 'cancel',
     bool isDestructive = false,
   }) async {
     return await Get.dialog<bool>(
       AlertDialog(
-        title: Text(title),
-        content: Text(message),
+        title: Text(title.tr),
+        content: Text(message.tr),
         actions: [
           TextButton(
             onPressed: () => Get.back(result: false),
-            child: Text(cancelText),
+            child: Text(cancelText.tr),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: isDestructive ? Colors.red : AppTheme.secondaryColor,
             ),
             onPressed: () => Get.back(result: true),
-            child: Text(confirmText),
+            child: Text(confirmText.tr),
           ),
         ],
       ),
@@ -98,33 +98,33 @@ class AppHelpers {
   }
 
   static String formatDate(DateTime? date) {
-    if (date == null) return 'N/A';
+    if (date == null) return 'na'.tr;
     return DateFormat('yyyy-MM-dd').format(date);
   }
 
   static String formatDateTime(DateTime? dateTime) {
-    if (dateTime == null) return 'N/A';
+    if (dateTime == null) return 'na'.tr;
     return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
   }
 
   static String getYearText(int year) {
     switch (year) {
       case 1:
-        return 'First Year';
+        return 'first_year'.tr;
       case 2:
-        return 'Second Year';
+        return 'second_year'.tr;
       case 3:
-        return 'Third Year';
+        return 'third_year'.tr;
       case 4:
-        return 'Fourth Year';
+        return 'fourth_year'.tr;
       case 5:
-        return 'Fifth Year';
+        return 'fifth_year'.tr;
       case 6:
-        return 'Of Graduates';
+        return 'of_graduates'.tr;
       case 7:
-        return 'Graduated';
+        return 'graduated'.tr;
       default:
-        return 'Unknown';
+        return 'unknown'.tr;
     }
   }
 
@@ -170,15 +170,15 @@ class AppHelpers {
   static String getMarkStatusText(String status) {
     switch (status.toLowerCase()) {
       case 'normal':
-        return 'Normal';
+        return 'normal'.tr;
       case 'deprived':
-        return 'Deprived';
+        return 'deprived'.tr;
       case 'with_draw':
-        return 'Withdrawn';
+        return 'withdrawn'.tr;
       case 'patchy':
-        return 'Incomplete';
+        return 'incomplete'.tr;
       default:
-        return 'Unknown';
+        return 'unknown'.tr;
     }
   }
 

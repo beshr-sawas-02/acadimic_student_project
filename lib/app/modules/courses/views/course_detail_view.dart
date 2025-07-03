@@ -44,31 +44,10 @@ class CourseDetailView extends GetView<CourseController> {
               _buildSectionTitle('prerequisites'.tr),
               Obx(() {
                 if (controller.isLoading.value) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Center(child: CircularProgressIndicator());
                 }
 
-                if (controller.prerequisites.isEmpty) {
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Center(
-                        child: Text(
-                          'no_prerequisites'.tr,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }
+                final prerequisites = controller.prerequisites;
 
                 return Card(
                   elevation: 2,
@@ -76,32 +55,55 @@ class CourseDetailView extends GetView<CourseController> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
-                      children: controller.prerequisites.map((prereq) {
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: CircleAvatar(
-                            backgroundColor: AppTheme.primaryColor,
-                            child: Text(
-                              prereq.substring(0, 1),
-                              style: TextStyle(
-                                color: AppTheme.secondaryColor,
-                                fontWeight: FontWeight.bold,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //   'prerequisites'.tr,
+                        //   style: const TextStyle(
+                        //     fontSize: 18,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                        const SizedBox(height: 5),
+                        if (prerequisites.isEmpty)
+                          SizedBox(
+                            width: double.infinity,
+                            height: 60,
+                            child: Center(
+                              child: Text(
+                                'no_prerequisites'.tr,
+                                style: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey,
+                                ),
                               ),
                             ),
+                          )
+                        else
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: prerequisites.map((prereq) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.arrow_right,
+                                      color: AppTheme.primaryColor,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      prereq,
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
                           ),
-                          title: Text(
-                            prereq,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text(
-                            '${'code'.tr}: ${prereq}',
-                          ),
-                        );
-                      }).toList(),
+                      ],
                     ),
                   ),
                 );

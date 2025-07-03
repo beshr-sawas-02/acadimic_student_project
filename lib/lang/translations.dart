@@ -163,7 +163,16 @@ class AppTranslations extends Translations {
           "delete_vote": "Delete Vote",
           "delete_vote_confirm": "Are you sure you want to delete this vote?",
           "select_1_7_courses": "Please select 1-7 courses you would like to take",
-          "home":"HOME"
+          "home":"HOME",
+          "loading": "Loading...",
+          "na": "N/A",
+          "of_graduates": "Of Graduates",
+          "graduated": "Graduated",
+          "unknown": "Unknown",
+          "normal": "Normal",
+          "deprived": "Deprived",
+          "withdrawn": "Withdrawn",
+          "incomplete": "Incomplete"
         },
         'ar': {
           "course_code": "رمز المادة: %s",
@@ -326,7 +335,16 @@ class AppTranslations extends Translations {
           "delete_vote": "حذف التصويت",
           "delete_vote_confirm": "هل أنت متأكد أنك تريد حذف هذا التصويت؟",
           "select_1_7_courses": "يرجى اختيار 1-7 مقررات تريد دراستها",
-          "home":'الرئيسية'
+          "home":'الرئيسية',
+          "loading": "جاري التحميل...",
+          "na": "غير متوفر",
+          "of_graduates": "خريجي",
+          "graduated": "متخرج",
+          "unknown": "غير معروف",
+          "normal": "عادي",
+          "deprived": "محروم",
+          "withdrawn": "منسحب",
+          "incomplete": "ناقص"
         },
       };
 }
